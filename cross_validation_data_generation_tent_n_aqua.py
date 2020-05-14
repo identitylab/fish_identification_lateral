@@ -43,9 +43,9 @@ def generateDataset(byIDorByImages=True,train_weight=0.5,train_dir_tent='tmp_ten
     # remove any file exist
     if os.path.exists(train_dir_tent):
         rmtree(train_dir_tent)
-        rmtree(train_dir_aqua)
+        # rmtree(train_dir_aqua)
         rmtree(test_dir_tent)
-        rmtree(test_dir_aqua)
+        # rmtree(test_dir_aqua)
 
     # check_folder(train_dir)
     check_folder(test_dir_tent)

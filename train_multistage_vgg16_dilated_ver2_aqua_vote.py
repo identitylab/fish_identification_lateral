@@ -7,6 +7,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_im
 from utils import *
 import os, random
 from cross_validation_data_generation_tent_n_aqua import *
+import tqdm
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 #0 = all messages are logged (default behavior)
@@ -48,7 +49,7 @@ def aug_data(orig_path,SAVE_PATH):
                                        horizontal_flip=False,
                                        fill_mode='nearest')
 
-    for file in alllist:
+    for file in tqdm.tqdm(alllist):
         img = load_img(file)
 
         x = img_to_array(img)
@@ -88,7 +89,7 @@ def aug_data_sess1(orig_path,k,SAVE_PATH): # use k images from testing dataset a
                                        horizontal_flip=True,
                                        fill_mode='nearest')
 
-    for file in selected_Filelist:
+    for file in tqdm.tqdm(selected_Filelist):
         img = load_img(file)
 
         x = img_to_array(img)
@@ -130,7 +131,7 @@ def aug_data_sess(orig_path,k,SAVE_PATH):
                                        horizontal_flip=True,
                                        fill_mode='nearest')
 
-    for file in selected_Filelist:
+    for file in tqdm.tqdm(selected_Filelist):
         img = load_img(file)
 
         x = img_to_array(img)

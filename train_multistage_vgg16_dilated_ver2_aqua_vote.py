@@ -252,10 +252,10 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(
 
 # the validation loss for three consecutive epochs.
 # train
-# history=model.fit(train_dataset, epochs=epochs,
-#                   callbacks=[cp_callback,tensorboard_callback], #TestCallback(timestamp,period=10,layername='batch_normalization_13'),
-#           validation_data=val_dataset, verbose=1, validation_steps=validation_steps)
-model.load_weights('model/20200422-105224vgg6_dilated_multistage_tent_ep-0010.ckpt')
+history=model.fit(train_dataset, epochs=epochs,
+                  callbacks=[cp_callback,tensorboard_callback], #TestCallback(timestamp,period=10,layername='batch_normalization_13'),
+          validation_data=val_dataset, verbose=1, validation_steps=validation_steps)
+# model.load_weights('model/20200422-105224vgg6_dilated_multistage_tent_ep-0010.ckpt')
 
 
 ##############2ed stage#################################################################################################
@@ -331,7 +331,7 @@ with open(File_log_name, encoding="utf-8",mode="a") as data:
 
 ######################3rd stage########################################################################################
 #TRAIN_SAVE_PATH = './tmp_tent/SESSION2_LT_AUG1231'
-# aug_data_sess('./tmp_tent/test/SESSION2',15,TRAIN_SAVE_PATH)
+aug_data_sess('./tmp_tent/test/SESSION2',15,TRAIN_SAVE_PATH)
 myloadData = LoadFishDataUtil(TRAIN_SAVE_PATH,BATCH_SIZE,IMG_WIDTH,IMG_HEIGHT,CLASS_NAMES,SPLIT_WEIGHTS)
 train_dataset,val_dataset,test_dataset,STEPS_PER_EPOCH, CLASS_NAMES,class_num = myloadData.loadFishData()
 

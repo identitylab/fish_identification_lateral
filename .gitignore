@@ -1,0 +1,11 @@
+data/
+model/
+__pycache__/
+.idea/
+tmp/
+logs/
+bob/
+*.svg
+*.png
+*.out
+*.log

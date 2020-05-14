@@ -57,7 +57,7 @@ def aug_data(orig_path,SAVE_PATH):
         i = 0
         path = os.path.normpath(file)
         parts = path.split(os.sep)
-        print('processing:' + parts[-1])
+        # print('processing:' + parts[-1])
         check_folder(SAVE_PATH + '/' + parts[-2])
         save_img(SAVE_PATH + '/' + parts[-2] + '/' + parts[-1], img)
         for batch in train_datagen.flow(x, batch_size=16, save_to_dir=SAVE_PATH + '/' + parts[-2],
@@ -97,7 +97,7 @@ def aug_data_sess1(orig_path,k,SAVE_PATH): # use k images from testing dataset a
         i = 0
         path = os.path.normpath(file)
         parts = path.split(os.sep)
-        print('processing:' + parts[-1])
+        # print('processing:' + parts[-1])
         check_folder(SAVE_PATH + '/' + parts[-2])
         save_img(SAVE_PATH + '/' + parts[-2] + '/' + parts[-1], img)
         for batch in train_datagen.flow(x, batch_size=1, save_to_dir=SAVE_PATH + '/' + parts[-2],
@@ -139,7 +139,7 @@ def aug_data_sess(orig_path,k,SAVE_PATH):
         i = 0
         path = os.path.normpath(file)
         parts = path.split(os.sep)
-        print('processing:' + parts[-1])
+        # print('processing:' + parts[-1])
         check_folder(SAVE_PATH + '/' + parts[-2])
         save_img(SAVE_PATH + '/' + parts[-2] + '/' + parts[-1], img)
         for batch in train_datagen.flow(x, batch_size=1, save_to_dir=SAVE_PATH + '/' + parts[-2],
@@ -182,14 +182,18 @@ def getAccByvote(test_data_dir,sess1_class_num, BATCH_SIZE, IMG_WIDTH, IMG_HEIGH
             mylabel = label[i].numpy()[0][0]
             result[mylabel].append(int(output[i]))
 
-    # print(result)
+    print(result)
     final = {}
     correct = 0
     for i in range(sess1_class_num):
         lst = result[i]
         modeval = [x for x in set(lst) if lst.count(x) > 1]
-        modeval = modeval[0]
-        final[i] = modeval
+        if len(modeval)>0:
+            modeval = modeval[0]
+            final[i] = modeval
+        else:
+            modeval = -1
+            final[i] = modeval
         if i == modeval:
             correct = correct + 1
     return correct/sess1_class_num
@@ -252,11 +256,11 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(
     period=10)
 
 # the validation loss for three consecutive epochs.
-# train
+# # train
 history=model.fit(train_dataset, epochs=epochs,
                   callbacks=[cp_callback,tensorboard_callback], #TestCallback(timestamp,period=10,layername='batch_normalization_13'),
           validation_data=val_dataset, verbose=1, validation_steps=validation_steps)
-# model.load_weights('model/20200422-105224vgg6_dilated_multistage_tent_ep-0010.ckpt')
+# model.load_weights('model/20200514-182443vgg6_dilated_multistage_tent_ep-0010.ckpt')
 
 
 ##############2ed stage#################################################################################################
@@ -320,7 +324,7 @@ history=model_2ed.fit(train_dataset, epochs=epochs,
 
 ###################################
 # evaluate on test set
-# model_2ed.load_weights('model/20200422-185636vgg6_stage2_sess1_dilated_multistage_tent_ep-0020.ckpt')
+# model_2ed.load_weights('model/20200514-214208vgg6_stage2_sess1_dilated_multistage_tent_ep-0020.ckpt')
 
 scores_session1,scores_session2,scores_session3,scores_session4 = reportAccu(BATCH_SIZE, IMG_WIDTH, IMG_HEIGHT, CLASS_NAMES,model_2ed)
 scores_session1_aqua,scores_session2_aqua,scores_session3_aqua,scores_session4_aqua =  0, 0,0,0

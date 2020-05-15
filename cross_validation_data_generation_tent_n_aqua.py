@@ -56,14 +56,14 @@ def generateDataset(byIDorByImages=True,train_weight=0.5,train_dir_tent='tmp_ten
         copytree(ST_DIR_TENT, train_dir_tent)
         pre = "tent_st"
         addPrefix(train_dir_tent, pre)
-        copytree(ST_DIR_AQUA, train_dir_aqua)
-        pre = "aqua_st"
-        addPrefix(train_dir_aqua, pre)
+        # copytree(ST_DIR_AQUA, train_dir_aqua)
+        # pre = "aqua_st"
+        # addPrefix(train_dir_aqua, pre)
 
-    if includeTentnAquaBoth:
-        copytree(ST_DIR_AQUA, train_dir_tent)
-        pre = "aqua"
-        addPrefix(train_dir_tent, pre)
+    # if includeTentnAquaBoth:
+    #     copytree(ST_DIR_AQUA, train_dir_tent)
+    #     pre = "aqua"
+    #     addPrefix(train_dir_tent, pre)
 
     SPLIT_WEIGHTS_INTRA_ID = (
         train_weight,1-train_weight, 0.0)  # train cv val vs test for each identity, 50% are taken as train and 50% as test

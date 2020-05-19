@@ -35,7 +35,7 @@ BATCH_SIZE = args.BATCH_SIZE
 File_log_name='logs/vgg16_dilated_multistage_Ids15_tent_vote.log'
 def aug_data(orig_path,SAVE_PATH):
     alllist = getfilelist(orig_path)
-    num_imgs = len(alllist);
+    num_imgs = len(alllist)
     print('total number of images:', num_imgs)
 
     num_aug_per_img = 5
@@ -58,14 +58,22 @@ def aug_data(orig_path,SAVE_PATH):
         path = os.path.normpath(file)
         parts = path.split(os.sep)
         # print('processing:' + parts[-1])
+        
+
         check_folder(SAVE_PATH + '/' + parts[-2])
         save_img(SAVE_PATH + '/' + parts[-2] + '/' + parts[-1], img)
         for batch in train_datagen.flow(x, batch_size=16, save_to_dir=SAVE_PATH + '/' + parts[-2],
                                         save_prefix=parts[-2],
                                         save_format='png'):
             i += 1
-            if i > num_aug_per_img:
-                break
+            if parts[-2].isnumeric():
+                if i > num_aug_per_img:
+                    break
+            else:
+                if i > 50:
+                    break
+
+            
 def aug_data_sess1(orig_path,k,SAVE_PATH): # use k images from testing dataset as gallery and train the model into a classfication model for this ten IDs
     subfolders = [f.path for f in os.scandir(orig_path) if f.is_dir()]
     Filelist = []

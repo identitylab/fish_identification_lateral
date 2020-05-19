@@ -45,6 +45,7 @@ def generateDataset(byIDorByImages=True,train_weight=0.5,train_dir_tent='tmp_ten
         rmtree(train_dir_tent)
         # rmtree(train_dir_aqua)
         rmtree(test_dir_tent)
+        rmtree('tmp_tent/SESSION1_ST_AUG0111')
         # rmtree(test_dir_aqua)
 
     # check_folder(train_dir)
